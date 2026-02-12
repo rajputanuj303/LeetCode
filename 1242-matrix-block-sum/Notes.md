@@ -1,1 +1,1 @@
-<h2>matrix-block-sum Notes</h2><hr>[ Time taken: 13 m 33 s ]
+<h2>matrix-block-sum Notes</h2><hr>[ Time taken: 39 m 31 s ]
