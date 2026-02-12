@@ -4,6 +4,21 @@ public:
         int m = mat.size();
         int n = mat[0].size();
 
+        vector<vector<int>> cumSum(m, vector<int>(n));
+
+        for(int i = 0; i<m; i++){
+            for(int j = 0; j<n; j++){
+                cumSum[i][j] = mat[i][j];
+
+                if(i-1 >= 0) cumSum[i][j] += cumSum[i-1][j];
+                if(j-1 >= 0) cumSum[i][j] += cumSum[i][j-1];
+
+                if(i-1 >= 0 && j-1 >= 0) cumSum[i][j] -= cumSum[i-1][j-1];
+
+                // cout << cumSum[i][j] << " "; 
+            }
+            // cout << endl;
+        }
         vector<vector<int>> answer(m, vector<int>(n));
 
         for(int i = 0; i<m; i++){
@@ -12,11 +27,12 @@ public:
                 int minR = max(i-k, 0), maxR = min(i+k, m-1);
                 int minC = max(j-k, 0), maxC = min(j+k, n-1);
 
-                int sum = 0;
+                int sum = cumSum[maxR][maxC];
 
-                for(int x = minR; x <= maxR; x++){
-                    for(int y = minC; y<=maxC; y++) sum += mat[x][y];
-                }                
+                if((minC-1 >= 0)) sum -= cumSum[maxR][minC-1];
+                if((minR-1 >= 0)) sum -= cumSum[minR-1][maxC];
+
+                if((minR-1 >= 0) && (minC-1 >= 0)) sum += cumSum[minR-1][minC-1];
                 answer[i][j] = sum;
             }
         }
