@@ -24,8 +24,8 @@ public:
         for(int i = 0; i<m; i++){
             for(int j = 0; j<n; j++){
 
-                int minR = max(i-k, 0), maxR = min(i+k, m-1);
-                int minC = max(j-k, 0), maxC = min(j+k, n-1);
+                int minR = i-k, maxR = min(i+k, m-1);
+                int minC = j-k, maxC = min(j+k, n-1);
 
                 int sum = cumSum[maxR][maxC];
 
