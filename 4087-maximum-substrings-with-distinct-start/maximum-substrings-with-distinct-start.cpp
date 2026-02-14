@@ -3,12 +3,13 @@ public:
     int maxDistinct(string s) {
         vector<bool> freq(26, 0);
 
-        for(char c : s) freq[c-'a'] = 1;
-
         int cnt = 0;
 
-        for(bool b : freq){
-            if(b) cnt++;
+        for(char c : s){
+            if(freq[c-'a'] == 0){
+                cnt++;
+                freq[c-'a'] = 1;
+            }
         }
 
         return cnt;
