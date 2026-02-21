@@ -4,7 +4,7 @@ public:
 
         if(i >= m || j >= n) return 0;
 
-        if(dp.find(i) != dp.end() && dp[i].find(j) != dp[i].end()) return dp[i][j];
+        if(dp.contains(i) && dp[i].contains(j)) return dp[i][j];
 
         int take1 = 1e9+7;
         int take2 = 1e9+7;
@@ -19,7 +19,7 @@ public:
         int m = triangle.size();
         int n = triangle[m-1].size();
 
-        unordered_map<int, unordered_map<int, int>> dp(m+1);
+        unordered_map<int, unordered_map<int, int>> dp;
         return Solver(0, 0, m, n, triangle, dp);
     }
 };
