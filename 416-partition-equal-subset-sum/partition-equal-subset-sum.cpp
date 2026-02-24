@@ -1,30 +1,28 @@
 class Solution {
 public:
 
-    int n;
-    vector<vector<int>> dp;
-    bool Solver(int i, int target, vector<int> &nums){
-        if(target == 0) return true;
-        if(target < 0 || i >= n) return false;
-        if(dp[i][target] != -1) return dp[i][target];
-
-        bool take = Solver(i+1, target - nums[i], nums);
-        bool nottake = Solver(i+1, target, nums);
-        return dp[i][target] = take||nottake;
-    }
     bool canPartition(vector<int>& nums) {
 
         int totalSum = 0;
-        n = nums.size();
+        int n = nums.size();
 
         for(int i : nums) totalSum += i;
-
         if(totalSum&1) return false;
-
         int target = totalSum/2;
 
-        dp.resize(n+1, vector<int>(target+1, -1));
+        vector<vector<int>> dp(n+1, vector<int>(target+1, 0));
 
-        return Solver(0, target, nums);
+        for(int i = 1; i<=n; i++){
+            for(int j = 0; j<=target; j++){
+                if(j == 0) dp[i][0] = 1;
+                else{
+                    if(j - nums[i-1] < 0) dp[i][j] = dp[i-1][j];
+                    else dp[i][j] = dp[i-1][j] || dp[i-1][j-nums[i-1]];
+                }
+
+            }
+        }
+
+        return dp[n][target];
     }
 };
