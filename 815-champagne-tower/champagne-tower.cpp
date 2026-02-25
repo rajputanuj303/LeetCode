@@ -9,10 +9,10 @@ public:
         int r = 0;
         bool overflow = true;
 
-        while(r < query_row && overflow) {   // ✅ fixed
+        while(r < query_row && overflow) {  
             overflow = false;
 
-            for(int c = 0; c <= query_glass; c++) {   // ✅ fixed
+            for(int c = 0; c <= query_glass; c++) {  
                 if(dp[r][c] > 1.0) {
                     overflow = true;
 
@@ -27,6 +27,6 @@ public:
             r++;
         }
 
-        return min(1.0, dp[query_row][query_glass]);  // ✅ clamp
+        return min(1.0, dp[query_row][query_glass]);  
     }
 };
