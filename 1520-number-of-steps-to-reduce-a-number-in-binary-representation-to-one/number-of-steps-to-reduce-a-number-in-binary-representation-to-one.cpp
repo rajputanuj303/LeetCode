@@ -27,7 +27,6 @@ public:
 
             if(s[n-1] == '1'){
                 AddOne(s);
-                cout << s << endl;
             }
             else{
                 s.pop_back();
