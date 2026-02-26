@@ -13,8 +13,6 @@ public:
         } else {
             s.insert(s.begin(), '1');
         }
-
-        cout << s << endl;
     }
     int numSteps(string s) {
 
