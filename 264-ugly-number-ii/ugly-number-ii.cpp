@@ -1,26 +1,23 @@
 class Solution {
 public:
     int nthUglyNumber(int n) {
-        vector<int> dp(n+1);
+        
 
-        dp[1] = 1;
+        set<long long> stt;
 
-        int i2 = 1, i3 = 1, i5 = 1;
+        stt.insert(1);
 
-        for(int i = 2; i<=n; i++){
+        while(--n){
 
-            int imul2 = dp[i2]*2;
-            int imul3 = dp[i3]*3;
-            int imul5 = dp[i5]*5;
+            long long val = *stt.begin();
+            stt.erase(stt.begin());
 
-            int minVal = min({imul2, imul3, imul5});
+            stt.insert(val*2);
+            stt.insert(val*3);
+            stt.insert(val*5);
 
-            if(minVal == imul2) i2++;
-            if(minVal == imul3) i3++;
-            if(minVal == imul5) i5++;
-
-            dp[i] = minVal;
         }
-        return dp[n];
+
+        return *stt.begin();
     }
 };
