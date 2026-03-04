@@ -11,17 +11,17 @@ public:
 
         if(prev == 0){
             if(s[i] == '0'){
-                take0 = 0 + Solver(i+1, 0, s, dp);
-                take1 = 1 + Solver(i+1, 1, s, dp);
+                take0 = (dp[i+1][0] != -1) ? dp[i+1][0] : Solver(i+1, 0, s, dp);
+                take1 = (dp[i+1][1] != -1) ? (1 + dp[i+1][1]) : (1 + Solver(i+1, 1, s, dp));
             }else{
-                take0 = 1 + Solver(i+1, 0, s, dp);
-                take1 = 0 + Solver(i+1, 1, s, dp);
+                take0 = (dp[i+1][0] != -1) ? (1 + dp[i+1][0]) : (1 + Solver(i+1, 0, s, dp));
+                take1 = (dp[i+1][1] != -1) ? dp[i+1][1] : Solver(i+1, 1, s, dp);
             }
         }else{
             if(s[i] == '0'){
-                take1 = 1 + Solver(i+1, 1, s, dp);
+                take1 = (dp[i+1][1] != -1) ? (1 + dp[i+1][1]) : (1 + Solver(i+1, 1, s, dp));
             }else{
-                take1 = 0 + Solver(i+1, 1, s, dp); 
+                take1 = (dp[i+1][1] != -1) ? dp[i+1][1] : Solver(i+1, 1, s, dp);
             }
         }
 
