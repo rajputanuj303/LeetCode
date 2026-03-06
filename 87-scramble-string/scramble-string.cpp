@@ -7,23 +7,18 @@ public:
         if(s1.size() != s2.size()) return false;
 
         string key = s1 + "_" + s2;
-        if(mpp.find(key) != mpp.end()) return mpp[key];
+        if(mpp.count(key)) return mpp[key];
 
         int n = s1.size();
         bool result = false;
 
         for(int i = 1; i<n; i++){
-            string a1 = s1.substr(0, i);
-            string a2 = s1.substr(i, n-i);
-            string b1 = s2.substr(0, i);
-            string b2 = s2.substr(i, n-i);
-            bool notSwapped = Solver(a1, b1) && Solver(a2, b2);
 
-            a1 = s1.substr(0, i);
-            a2 = s2.substr(n-i, i);
-            b1 = s1.substr(i, n-i);
-            b2 = s2.substr(0, n-i);
-            bool swapped = Solver(a1, a2) && Solver(b1, b2);
+            bool notSwapped = Solver(s1.substr(0, i), s2.substr(0, i)) && 
+                            Solver(s1.substr(i, n-i), s2.substr(i, n-i));
+
+            bool swapped = Solver(s1.substr(0, i), s2.substr(n-i, i)) && 
+                           Solver(s1.substr(i, n-i), s2.substr(0, n-i));
 
             if(swapped || notSwapped){
                 result = true;
