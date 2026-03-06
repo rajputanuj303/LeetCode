@@ -18,13 +18,9 @@ public:
 
             int temp = 1 + max(broken, notbroken);
 
-            if(broken > notbroken){
-                high = mid - 1;
-            }
-            else{
-                low = mid + 1;
-            }
-
+            if(broken > notbroken) high = mid - 1;
+            else low = mid + 1;
+            
             ans = min(ans, temp);
         }
 
