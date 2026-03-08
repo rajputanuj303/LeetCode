@@ -14,12 +14,13 @@ public:
         return s;
     }
 
-    void generateBits(int n, vector<string> &bits){
+    string generateBits(int n, set<string> &stt){
 
         for(int i = 0; i<pow(2, n); i++){
             string s = toBinary(i, n);
-            bits.push_back(s);
+            if(stt.find(s) == stt.end()) return s;
         }
+        return "";
     }
 
     string findDifferentBinaryString(vector<string>& nums) {
@@ -28,11 +29,6 @@ public:
         int n = nums[0].size();
         vector<string> bits;
 
-        generateBits(n, bits);
-
-        for(string s : bits){
-            if(stt.find(s) == stt.end()) return s;
-        }
-        return "";
+        return generateBits(n, stt);
     }
 };
