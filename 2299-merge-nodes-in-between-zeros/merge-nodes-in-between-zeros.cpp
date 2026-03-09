@@ -13,16 +13,14 @@ public:
     ListNode* mergeNodes(ListNode* head) {
         
         ListNode* p1 = head;
-
-        ListNode* newHead = new ListNode(-1);
-        ListNode* temp = newHead;
+        ListNode* temp = head;
 
         int val = 0;
         
         while(p1 != nullptr){            
             if(p1->val == 0){
                 if(val != 0){
-                    temp->next = new ListNode(val);
+                    temp->next->val = val;
                     temp = temp->next;
                 }                    
                 val = 0;
@@ -32,7 +30,8 @@ public:
                 p1 = p1->next;
             }
         }
-        return newHead->next;
+        temp->next = nullptr;
+        return head->next;
 
     }
 };
