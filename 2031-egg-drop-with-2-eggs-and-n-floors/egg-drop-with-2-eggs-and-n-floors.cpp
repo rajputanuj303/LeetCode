@@ -5,14 +5,22 @@ public:
 
         if(dp[n][e] != -1) return dp[n][e];
 
-        int minRes = INT_MAX;        
+        int minRes = INT_MAX;  
 
-        for(int i = 1; i<=n; i++){
-            int broken = Solver(i-1, e-1, dp);
-            int notbroken = Solver(n-i, e, dp);
+        int low = 1, high = n;      
+
+        while(low <= high){
+
+            int mid = low + (high-low)/2;
+
+            int broken = Solver(mid-1, e-1, dp);
+            int notbroken = Solver(n-mid, e, dp);
 
             int temp = 1 + max(broken, notbroken);
             minRes = min(minRes, temp);
+            
+            if(broken > notbroken) high = mid - 1;
+            else low = mid + 1;
         }
 
        
