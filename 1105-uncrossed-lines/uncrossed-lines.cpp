@@ -2,6 +2,8 @@ class Solution {
 public:
     int m, n;
     vector<vector<int>> dp;
+    unordered_map<int, vector<int>> mpp;
+
     int Solver(int i, int j, vector<int>& nums1, vector<int>& nums2){
         
         if(i >= m || j >= n) return 0;
@@ -12,12 +14,13 @@ public:
 
         int pidx = -1;
 
-        for(int x = j; x < n; x++){
-            if(nums1[i] == nums2[x]){
-                pidx = x;
+        for(int idx : mpp[nums1[i]]){
+            if(idx >= j){
+                pidx = idx;
                 break;
             }
         }
+        
         int pair = 0;
 
         if(pidx != -1){
@@ -31,7 +34,11 @@ public:
         m = nums1.size();
         n = nums2.size();
         dp.resize(m+1, vector<int>(n+1, -1));
-        
+
+        for(int j = 0; j<n; j++){
+            mpp[nums2[j]].push_back(j);
+        }
+
         return Solver(0, 0, nums1, nums2);
     }
 };
