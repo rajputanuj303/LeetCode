@@ -8,19 +8,13 @@ public:
 
         if(dp[s] != -1) return dp[s];
 
-        int count = 0;
+        long long count = 0;
 
-        if(s+z >= l && s+z <= h){
-            count = 1 + (Solver(s+z, l, h, z, o)%MOD);
-        }else{
-            count = Solver(s+z, l, h, z, o)%MOD;
-        }
+        if(s >= l && s <= h) 
+            count = 1;
 
-        if(s+o >= l && s+o <= h){
-            count += (1 + Solver(s+o, l, h, z, o))%MOD;
-        }else{
-            count = (count%MOD + Solver(s+o, l, h, z, o)%MOD)%MOD;
-        }
+        count = (count + Solver(s + z, l, h, z, o)) % MOD;
+        count = (count + Solver(s + o, l, h, z, o)) % MOD;
 
         return dp[s] = count%MOD;
     }
