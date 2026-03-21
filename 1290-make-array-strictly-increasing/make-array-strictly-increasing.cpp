@@ -29,6 +29,8 @@ public:
 
     int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
 
+
+        arr2.erase(unique(arr2.begin(), arr2.end()), arr2.end());
         sort(arr2.begin(), arr2.end());
 
         int res = Solver(0, -1, arr1, arr2);
