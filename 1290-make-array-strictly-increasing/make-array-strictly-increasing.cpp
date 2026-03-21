@@ -1,13 +1,12 @@
 class Solution {
 public:
-    unordered_map<string, int> dp;
+    map<pair<int, int>, int> dp;
 
     int Solver(int i, int prev, vector<int>& arr1, vector<int>& arr2){
 
         if(i >= arr1.size()) return 0;
 
-        string key = to_string(i) + "#" + to_string(prev);
-        if(dp.count(key)) return dp[key];
+        if(dp.count({i, prev})) return dp[{i, prev}];
 
         int nottake = 1e9;
         int take = 1e9;
@@ -24,7 +23,7 @@ public:
             take = 1 + Solver(i+1, *it, arr1, arr2);
         }
 
-        return dp[key] = min(take, nottake);
+        return dp[{i, prev}] = min(take, nottake);
     }
 
     int makeArrayIncreasing(vector<int>& arr1, vector<int>& arr2) {
