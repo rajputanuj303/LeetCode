@@ -12,12 +12,12 @@ public:
         int nottake = 1e9;
         int take = 1e9;
 
-        // Option 1: don't replace
+        //do not replace
         if(arr1[i] > prev){
             nottake = Solver(i+1, arr1[i], arr1, arr2);
         }
 
-        // Option 2: replace using upper_bound
+        //replace with the value greater than prev
         auto it = upper_bound(arr2.begin(), arr2.end(), prev);
 
         if(it != arr2.end()){
