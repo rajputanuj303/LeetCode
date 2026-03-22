@@ -1,23 +1,22 @@
 class Solution {
 public:
-    vector<vector<int>> rotate90(vector<vector<int>> &mat){
-        int m = mat.size();
-        int n = mat[0].size();
-
-        vector<vector<int>> rotated(m, vector<int>(n));
-
-        for(int i = 0; i<m; i++){
-            for(int j = 0; j<n; j++){
-                rotated[i][j] = mat[n-j-1][i];
-
-                // cout << rotated[i][j] << " ";
+    void rotate90(vector<vector<int>> &mat){
+        
+        int n = mat.size();
+        
+        //Transpose
+        for(int i = 0; i<n; i++){
+            for(int j = i+1; j<n; j++){
+                swap(mat[i][j], mat[j][i]);
             }
-            // cout << endl;
         }
 
-        // cout << endl << endl;
-
-        return rotated;
+        //row-reverse
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<n/2; j++){
+                swap(mat[i][j], mat[i][n-j-1]);
+            }
+        }
         
     }
 
@@ -26,15 +25,15 @@ public:
 
         if(mat == target) return true;
 
-        mat = rotate90(mat);
+        rotate90(mat); // rotate once
 
         if(mat == target) return true;
         
-        mat = rotate90(mat);
+        rotate90(mat); // rotate twice
 
         if(mat == target) return true;
 
-        mat = rotate90(mat);
+        rotate90(mat); // rotate thrice
 
         if(mat == target) return true;
 
