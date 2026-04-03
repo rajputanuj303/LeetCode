@@ -1,6 +1,6 @@
 class Solution {
 public:
-    void DFS(int u, int &n, vector<int> currPath, vector<vector<int>> &AllPaths, vector<vector<int>> &graph){
+    void DFS(int u, int &n, vector<int> &currPath, vector<vector<int>> &AllPaths, vector<vector<int>> &graph){
 
         currPath.push_back(u);
 
@@ -13,7 +13,9 @@ public:
 
         for(int v : graph[u]){
             DFS(v, n, currPath, AllPaths, graph);
+            currPath.pop_back();
         }
+        
     }
     vector<vector<int>> allPathsSourceTarget(vector<vector<int>>& graph) {
         vector<vector<int>> AllPaths;
