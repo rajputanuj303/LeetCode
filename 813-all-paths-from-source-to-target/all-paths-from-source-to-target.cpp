@@ -2,16 +2,15 @@ class Solution {
 public:
     void DFS(int u, int &n, vector<int> &currPath, vector<vector<int>> &AllPaths, vector<vector<int>> &graph){
 
-        currPath.push_back(u);
-
         if(u == n-1){
-            if(currPath.size()){
-                AllPaths.push_back(currPath);
-            }
+            currPath.push_back(u);
+            AllPaths.push_back(currPath);
+            currPath.pop_back();
             return;
         }       
 
         for(int v : graph[u]){
+            currPath.push_back(u);
             DFS(v, n, currPath, AllPaths, graph);
             currPath.pop_back();
         }
