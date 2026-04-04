@@ -1,6 +1,9 @@
 class Solution {
 public:
     string decodeCiphertext(string encodedText, int rows) {
+
+        if(rows == 1) return encodedText;
+
         int size = encodedText.size();
         int cols = size/rows;
 
@@ -17,11 +20,9 @@ public:
 
         }
 
-        int lastdig = res.size()-1;
-
-        while(lastdig >= 0 && res[lastdig] == ' ') lastdig--;
-
-        res.erase(res.begin()+lastdig+1, res.end());
+        while (!res.empty() && res.back() == ' ') {
+            res.pop_back();
+        }
 
         return res;
     }
