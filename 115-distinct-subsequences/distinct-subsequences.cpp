@@ -23,7 +23,7 @@ public:
     int numDistinct(string s, string t) {
         m = s.size();
         n = t.size();
-        dp.assign(m, vector<long long>(n, -1));
+        dp.resize(m, vector<long long>(n, -1));
         return Solver(0, 0, s, t);
     }
 };
