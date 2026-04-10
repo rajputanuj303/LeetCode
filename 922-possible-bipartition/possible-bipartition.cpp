@@ -20,7 +20,7 @@ public:
         
         vector<vector<int>> adjLs(n+1);
 
-        for(vector<int> v : dislikes){
+        for(const vector<int> &v : dislikes){
             adjLs[v[0]].push_back(v[1]);
             adjLs[v[1]].push_back(v[0]);
         }
