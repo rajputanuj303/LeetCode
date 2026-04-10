@@ -3,7 +3,7 @@ public:
 
     //-1 --> N/A, 0 --> R, 1 --> G
 
-    bool dfs(int i, int col, vector<int> &visited, unordered_map<int, vector<int>> &adjLs){
+    bool dfs(int i, int col, vector<int> &visited, vector<vector<int>> &adjLs){
         
         visited[i] = col;
 
@@ -17,7 +17,8 @@ public:
     }
 
     bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
-        unordered_map<int, vector<int>> adjLs;
+        
+        vector<vector<int>> adjLs(n+1);
 
         for(vector<int> v : dislikes){
             adjLs[v[0]].push_back(v[1]);
