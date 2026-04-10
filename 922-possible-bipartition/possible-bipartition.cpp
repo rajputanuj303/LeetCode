@@ -7,7 +7,7 @@ public:
         
         visited[i] = col;
 
-        for(int ele : adjLs[i]){
+        for(int &ele : adjLs[i]){
             if(visited[ele] == -1){
                 if(!dfs(ele, 1 - col, visited, adjLs)) return false;
             }else if(visited[ele] == col) return false;
