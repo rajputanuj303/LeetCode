@@ -35,8 +35,10 @@ public:
                 if(curr->right) que.push(curr->right);
             }
 
-            res.insert(res.begin(), temp);
+            res.push_back(temp);
         }
+
+        reverse(res.begin(), res.end());
 
         return res;
     }
