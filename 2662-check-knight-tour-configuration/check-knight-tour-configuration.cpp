@@ -17,7 +17,7 @@ public:
             int j = que.front().second;
             que.pop();
 
-            for(pair<int, int> dir : dirs){
+            for(pair<int, int> &dir : dirs){
                 int newi = i + dir.first;
                 int newj = j + dir.second;
 
