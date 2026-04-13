@@ -12,7 +12,7 @@ public:
 
         for(curr = 1; curr < n*n; curr++){
 
-            int tempi = i, tempj = j;
+            bool found = false;
 
             for(pair<int, int> &dir : dirs){
                 int newi = i + dir.first;
@@ -21,11 +21,12 @@ public:
                 if(newi >= 0 && newj >= 0 && newi < n && newj < n && grid[newi][newj] == curr){                    
                     i = newi;
                     j = newj;
+                    found = true;
                     break;
                 }
             }
 
-            if(i == tempi && j == tempj) return false;
+            if(!found) return false;
         }
 
         return true;
