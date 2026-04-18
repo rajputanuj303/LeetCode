@@ -1,14 +1,46 @@
 class Solution {
 public:
+    bool isSafePlace(int n, vector<string> &nQueens, int row, int col){
+        for(int i = 0; i<n; i++){
+            if(nQueens[i][col] == 'Q') return false;
+            if(nQueens[row][i] == 'Q') return false;
+        }
+        
+        for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--) {
+            if(nQueens[i][j] == 'Q') {
+                return false;
+            }
+        }
+
+        // Check upper-right diagonal for any queen
+        for(int i=row-1, j=col+1; i>=0 && j<n; i--, j++) {
+            if(nQueens[i][j] == 'Q') {
+                return false;
+            }
+        }
+        return true;
+    }
+    int solver(int n, vector<string> nQueens, int row)
+    {
+        if(row == n){
+            return 1;
+        }
+
+        int count = 0;
+
+        for(int col = 0; col<n; col++){
+            if(isSafePlace(n, nQueens, row, col) == true){
+                nQueens[row][col] = 'Q';
+                count += solver(n, nQueens, row+1);
+                nQueens[row][col] = '.';
+            }
+        }
+        return count;
+    }
+
     int totalNQueens(int n) {
-        if(n==1)return 1;
-        if(n==2)return 0;
-        if(n==3)return 0;
-        if(n==4)return 2;
-        if(n==5)return 10;
-        if(n==6)return 4;
-        if(n==7)return 40;
-        if(n==8)return 92;
-        return 352;
+
+        vector<string> nQueens(n, string(n, '.'));
+        return solver(n, nQueens, 0);
     }
 };
