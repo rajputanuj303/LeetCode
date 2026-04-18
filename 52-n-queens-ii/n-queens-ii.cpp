@@ -11,19 +11,11 @@ public:
         while(x >= 0 && y >= 0){
             if(nQueens[x--][y--]) return false;
         }
-        x = row, y = col;
-        while(x < n && y < n){
-            if(nQueens[x++][y++]) return false;
-        }
+
         x = row, y = col;
         while(x >= 0 && y < n){
             if(nQueens[x--][y++]) return false;
         }
-        x = row, y = col;
-        while(x < n && y >= 0){
-            if(nQueens[x++][y--]) return false;
-        }
-
 
         return true;
     }
