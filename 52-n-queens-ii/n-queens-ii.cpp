@@ -1,26 +1,33 @@
 class Solution {
 public:
-    bool isSafePlace(int n, vector<string> &nQueens, int row, int col){
+    bool isSafePlace(int n, vector<vector<int>> &nQueens, int row, int col){
         for(int i = 0; i<n; i++){
-            if(nQueens[i][col] == 'Q') return false;
-            if(nQueens[row][i] == 'Q') return false;
+            if(nQueens[i][col] == 1) return false;
+            if(nQueens[row][i] == 1) return false;
         }
         
-        for(int i=row-1, j=col-1; i>=0 && j>=0; i--, j--) {
-            if(nQueens[i][j] == 'Q') {
-                return false;
-            }
+        int x = row, y = col;
+
+        while(x >= 0 && y >= 0){
+            if(nQueens[x--][y--]) return false;
+        }
+        x = row, y = col;
+        while(x < n && y < n){
+            if(nQueens[x++][y++]) return false;
+        }
+        x = row, y = col;
+        while(x >= 0 && y < n){
+            if(nQueens[x--][y++]) return false;
+        }
+        x = row, y = col;
+        while(x < n && y >= 0){
+            if(nQueens[x++][y--]) return false;
         }
 
-        // Check upper-right diagonal for any queen
-        for(int i=row-1, j=col+1; i>=0 && j<n; i--, j++) {
-            if(nQueens[i][j] == 'Q') {
-                return false;
-            }
-        }
+
         return true;
     }
-    int solver(int n, vector<string> nQueens, int row)
+    int solver(int n, vector<vector<int>> &nQueens, int row)
     {
         if(row == n){
             return 1;
@@ -30,9 +37,9 @@ public:
 
         for(int col = 0; col<n; col++){
             if(isSafePlace(n, nQueens, row, col) == true){
-                nQueens[row][col] = 'Q';
+                nQueens[row][col] = 1;
                 count += solver(n, nQueens, row+1);
-                nQueens[row][col] = '.';
+                nQueens[row][col] = 0;
             }
         }
         return count;
@@ -40,7 +47,7 @@ public:
 
     int totalNQueens(int n) {
 
-        vector<string> nQueens(n, string(n, '.'));
+        vector<vector<int>> nQueens(n, vector<int>(n, 0));
         return solver(n, nQueens, 0);
     }
 };
