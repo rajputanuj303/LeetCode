@@ -4,30 +4,25 @@ public:
         
         int n = heights.size();
         
-        stack<pair<int,int>> right_stack;
-        stack<pair<int,int>> left_stack;
-
-        right_stack.push({INT_MIN, n});
-        left_stack.push({INT_MIN, -1});
+        stack<int> st;
 
         vector<int> leftMinIdx(n);
-        vector<int> rightMinIdx(n);
-
-        for(int i = 0; i<n; i++){
-
-            int leftHeight = heights[i];
-            int rightHeight = heights[n-i-1];
-
-            while(left_stack.top().first >= leftHeight) left_stack.pop();
-            while(right_stack.top().first >= rightHeight) right_stack.pop();
-
-            leftMinIdx[i] = left_stack.top().second;
-            rightMinIdx[n-i-1] = right_stack.top().second;
-
-            left_stack.push({heights[i], i});
-            right_stack.push({heights[n-i-1], n-i-1});
+        // filling left Minimum Indexes
+        for(int i = 0; i<n; i++){            
+            while(!st.empty() && heights[st.top()] >= heights[i]) st.pop();
+            leftMinIdx[i] = (st.empty()) ? -1 : st.top();    
+            st.push(i);        
         }
 
+        while(!st.empty()) st.pop();
+
+        vector<int> rightMinIdx(n);
+        // filling right Minimum Indexes
+        for(int i = n-1; i >= 0; i--){            
+            while(!st.empty() && heights[st.top()] >= heights[i]) st.pop();
+            rightMinIdx[i] = (st.empty()) ? n : st.top();   
+            st.push(i);         
+        }
 
         int maxSize = 0;
 
