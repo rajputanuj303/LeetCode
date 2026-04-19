@@ -1,19 +1,17 @@
 class Solution {
 public:
-    static bool cmp(vector<int> &u, vector<int> &v){
-        return u[2] > v[2];
-    }
-    vector<vector<int>> colorGrid(int n, int m, vector<vector<int>>& sources) {
-        
+
+    vector<vector<int>> colorGrid(int &n, int &m, vector<vector<int>>& sources) {        
 
         vector<vector<int>> res(n, vector<int>(m, 0));
+        queue<pair<int, int>> que;        
 
-        queue<pair<int, int>> que;
-
-        sort(sources.begin(), sources.end(), cmp);
+        sort(sources.begin(), sources.end(), [](const vector<int> &u, const vector<int> &v){
+            return u[2] > v[2];
+        });        
 
         for(vector<int> &v : sources){
-            
+
             int i = v[0], j = v[1], color = v[2];
             res[i][j] = color;
             que.push({i, j});
