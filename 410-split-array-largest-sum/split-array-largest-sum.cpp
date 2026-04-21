@@ -18,7 +18,7 @@ public:
 
         for(int i = idx; i < nums.size(); i++){
             sum += nums[i];
-            int next = Solver(i+1, k-1, nums);
+            int next = (dp[i+1][k] != -1) ? dp[i+1][k-1] : Solver(i+1, k-1, nums);
             mini = min(mini, max(sum, next));
         }
         return dp[idx][k] = mini;
