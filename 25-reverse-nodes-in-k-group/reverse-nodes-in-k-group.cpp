@@ -14,7 +14,7 @@ public:
         return prev;
     }
 
-    ListNode* Solver(ListNode* head, int k){
+    ListNode* reverseKGroup(ListNode* head, int k) {
         if(!head) return nullptr;
 
         ListNode* p1 = head;
@@ -29,15 +29,11 @@ public:
 
         if(count > 0) return p1;  
 
-        ListNode* nextNode = Solver(p2, k);
+        ListNode* nextNode = reverseKGroup(p2, k);
         ListNode* rev1 = reverse(p1, p2);
 
         p1->next = nextNode;
 
         return rev1;
-    }
-
-    ListNode* reverseKGroup(ListNode* head, int k) {
-        return Solver(head, k);
     }
 };
