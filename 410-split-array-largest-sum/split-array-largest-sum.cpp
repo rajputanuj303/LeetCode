@@ -1,38 +1,44 @@
 class Solution {
 public:
-    int n;
-    vector<vector<int>> dp;
-    vector<int> prefixSum;
-    int Solver(int idx, int k, vector<int> &nums){
-        if(k > nums.size()) return INT_MAX;
-        if(k == 1){
-            int sum = prefixSum[n-1];
-            if(idx-1 >= 0) sum -= prefixSum[idx-1];
-            return sum;
+    bool isValid(int limit, int k, vector<int> &nums){
+
+        int st = 1, pagesAll = 0;
+        for(int i = 0; i<nums.size(); i++){
+            if(pagesAll + nums[i] <= limit){
+                pagesAll += nums[i];
+            }else{
+                pagesAll = nums[i];
+                st++;
+            }            
         }
 
-        if(dp[idx][k] != -1) return dp[idx][k];
-
-        int sum = 0;
-        int mini = INT_MAX;
-
-        for(int i = idx; i < nums.size(); i++){
-            sum += nums[i];
-            int next = (dp[i+1][k-1] != -1) ? dp[i+1][k-1] : Solver(i+1, k-1, nums);
-            mini = min(mini, max(sum, next));
-        }
-        return dp[idx][k] = mini;
+        return st <= k;
     }
     int splitArray(vector<int>& nums, int k) {
-        n = nums.size();
-        dp.resize(n+1, vector<int>(k+1, -1));
 
-        prefixSum.resize(n, 0);
-        prefixSum[0] = nums[0];
+        int n = nums.size();
+        int low = 0;
+        int high = 0;
 
-        for(int i = 1; i<n; i++){
-            prefixSum[i] = prefixSum[i-1] + nums[i];
+        for(int i = 0; i<n; i++){
+            low = max(low, nums[i]);
+            high += nums[i];
         }
-        return Solver(0, k, nums);
+
+        int res = high;
+
+        while(low <= high){
+            int mid = low + (high - low)/2;
+
+            if(isValid(mid, k, nums)){
+                res = mid;
+                high = mid-1;
+            }else{
+                low = mid+1;
+            }
+
+        }
+
+        return res;
     }
 };
