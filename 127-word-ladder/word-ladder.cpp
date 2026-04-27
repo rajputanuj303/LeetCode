@@ -32,26 +32,34 @@ public:
 
         if(!wordListSet.count(endWord)) return 0;
 
-        queue<pair<string, int>> que;
+        queue<string> que;
 
-        que.push({beginWord, 1});
+        que.push(beginWord);
         
         visited.insert(beginWord);
 
+        int pathLen = 1;
+
         while(!que.empty()){
 
-            string currWord = que.front().first;
-            int pathLen = que.front().second;
-            que.pop();
+            int size = que.size();
 
-            if(currWord == endWord) return pathLen;
+            for(int i = 0; i<size; i++){
+                
+                string currWord = que.front();
+                que.pop();
 
-            vector<string> oneDiff = hasOneDiff(currWord);
+                if(currWord == endWord) return pathLen;
+                
+                vector<string> oneDiff = hasOneDiff(currWord);
 
-            for(string s : oneDiff){
-                visited.insert(s);
-                que.push({s, pathLen+1});
-            }            
+                for(string s : oneDiff){
+                    visited.insert(s);
+                    que.push(s);
+                }
+            }
+            
+            pathLen++;                       
         }
         return 0;
     }
