@@ -4,7 +4,7 @@ public:
     unordered_set<string> wordListSet;
     unordered_set<string> visited;
 
-    vector<string> hasOneDiff(string s){
+    vector<string> hasOneDiff(string &s){
 
         vector<string> oneDiff;
         int n = s.size();
@@ -13,11 +13,10 @@ public:
             for(int i = 0; i<n; i++){
                 char temp = s[i];
                 s[i] = c;
-
+                
                 if(!visited.count(s) && wordListSet.count(s)){
                     oneDiff.push_back(s);
-                }              
-
+                }
                 s[i] = temp;
             }
         }
@@ -28,7 +27,7 @@ public:
 
     int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
         
-        for(string s : wordList) wordListSet.insert(s);
+        for(string &s : wordList) wordListSet.insert(s);
 
         if(!wordListSet.count(endWord)) return 0;
 
@@ -53,12 +52,12 @@ public:
                 
                 vector<string> oneDiff = hasOneDiff(currWord);
 
-                for(string s : oneDiff){
+                for(string &s : oneDiff){
                     visited.insert(s);
                     que.push(s);
                 }
             }
-            
+
             pathLen++;                       
         }
         return 0;
