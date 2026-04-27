@@ -4,9 +4,8 @@ public:
     unordered_set<string> wordListSet;
     unordered_set<string> visited;
 
-    vector<string> hasOneDiff(string &s){
+    vector<string> hasOneDiff(string &s, vector<string> &oneDiff){
 
-        vector<string> oneDiff;
         int n = s.size();
 
         for(char c = 'a'; c<='z'; c++){
@@ -16,6 +15,7 @@ public:
                 
                 if(!visited.count(s) && wordListSet.count(s)){
                     oneDiff.push_back(s);
+                    visited.insert(s);
                 }
                 s[i] = temp;
             }
@@ -43,20 +43,18 @@ public:
 
             int size = que.size();
 
-            for(int i = 0; i<size; i++){
-                
+            vector<string> oneDiff;
+
+            for(int i = 0; i<size; i++){                
                 string currWord = que.front();
                 que.pop();
 
                 if(currWord == endWord) return pathLen;
                 
-                vector<string> oneDiff = hasOneDiff(currWord);
-
-                for(string &s : oneDiff){
-                    visited.insert(s);
-                    que.push(s);
-                }
+                hasOneDiff(currWord, oneDiff);                
             }
+
+            for(string &s : oneDiff) que.push(s);
 
             pathLen++;                       
         }
