@@ -13,16 +13,15 @@ public:
         auto [startStation, t1] = mpp[id];
         mpp.erase(id);
         string key = startStation + "#" + stationName;
-        countSum[key] = {countSum[key].first+1, countSum[key].second + (t-t1)};
+        countSum[key].first += 1;
+        countSum[key].second += (t - t1);
     }
     
     double getAverageTime(string startStation, string endStation) {
         string key = startStation+ "#" + endStation;
 
-        double count = countSum[key].first;
-        double sum  = countSum[key].second;
-        // cout << count << " " << sum << endl;
-        return sum / count;
+        auto &p = countSum[key];
+        return (double)p.second / (double)p.first;
     }
 };
 
