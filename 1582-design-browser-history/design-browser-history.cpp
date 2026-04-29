@@ -15,20 +15,17 @@ public:
     }
     
     string back(int steps) {
-        if(steps > i){
-            i = 0;
-        }else i -= steps;
+        
+        (i - steps >= 0) ? i -= steps : i = 0;
         
         return arr[i];
     }
     
     string forward(int steps) {
+        int n = arr.size();
         
-        if(i + steps < arr.size()){
-            i += steps;
-        }else{
-            i = arr.size()-1;
-        }
+        (i + steps < n) ? i += steps : i = n-1; 
+        
         return arr[i];
     }
 };
