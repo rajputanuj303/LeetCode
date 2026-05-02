@@ -48,8 +48,6 @@ public:
         int priority = mostPrior.first;
         int taskId = mostPrior.second;
 
-        cout << taskId << " " << priority << endl;
-
         int userId = taskUser[taskId];
 
         taskUser.erase(taskId);
