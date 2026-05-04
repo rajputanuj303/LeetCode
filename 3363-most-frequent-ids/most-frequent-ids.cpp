@@ -1,29 +1,27 @@
-class Solution {
+class Solution
+{
 public:
-    vector<long long> mostFrequentIDs(vector<int>& nums, vector<int>& freq) {
-
-        int n = nums.size();
-
+    vector<long long> mostFrequentIDs(vector<int> &nums, vector<int> &freq)
+    {
         unordered_map<int, long long> mpp;
-        set<pair<long long, int>> sortedSet;
+        priority_queue<pair<long long, int>> pq;
 
-        vector<long long> res;
+        vector<long long> ans;
+        for (int i = 0; i < nums.size(); i++){
 
-        for(int i = 0; i<n; i++){
-            int key = nums[i];
-            long long currFreq = freq[i];
-            long long prevFreq = mpp[key];
+            mpp[nums[i]] += freq[i];
+            pq.push({mpp[nums[i]], nums[i]});
 
-            if(sortedSet.count({prevFreq, key})) sortedSet.erase({prevFreq, key});
+            while (!pq.empty()) {
 
-            sortedSet.insert({prevFreq + currFreq, key});
+                pair<long long, int> p = pq.top();
+                if(mpp[p.second] != p.first) pq.pop();                    
+                else break;
 
-            mpp[key] += currFreq;
-
-            pair<long long, int> largest = *sortedSet.rbegin();
-            res.push_back(largest.first);            
+            }
+            
+            ans.push_back(pq.top().first);
         }
-
-        return res;
+        return ans;
     }
 };
