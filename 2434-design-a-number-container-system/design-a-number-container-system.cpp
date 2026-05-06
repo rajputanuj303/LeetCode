@@ -10,6 +10,10 @@ public:
         if(indexNum.find(index) != indexNum.end()){
             int prevNumber = indexNum[index];
             sortedSet[prevNumber].erase(index);
+
+            if(sortedSet[prevNumber].empty()) {
+                sortedSet.erase(prevNumber);
+            }
         }
 
         sortedSet[number].insert(index);
@@ -17,8 +21,9 @@ public:
     }
     
     int find(int number) {
-        if(sortedSet[number].empty()) return -1;
-        return *sortedSet[number].begin();
+        auto it = sortedSet.find(number);
+        if(it == sortedSet.end() || it->second.empty()) return -1;
+        return *(it->second.begin());
     }
 };
 
