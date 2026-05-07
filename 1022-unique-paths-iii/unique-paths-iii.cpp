@@ -10,7 +10,7 @@ public:
 
     int Solver(int i, int j, int empty, vector<vector<int>> &grid){
         if(grid[i][j] == 2){
-            if(empty == 0) return 1;
+            if(empty == -1) return 1;
             return 0;
         }
 
@@ -49,11 +49,11 @@ public:
                     si = i;
                     sj = j;
                 }
-                if(grid[i][j] != -1) empty++;
+                if(grid[i][j] == 0) empty++;
             }
         }
 
-        int res = Solver(si, sj, empty-1, grid);
+        int res = Solver(si, sj, empty, grid);
         return res;
     }
 };
