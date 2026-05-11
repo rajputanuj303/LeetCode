@@ -6,7 +6,7 @@ public:
 
         if(parents[int(x-'a')] == x) return x;
 
-        return find(parents[int(x-'a')]);
+        return parents[int(x-'a')] = find(parents[int(x-'a')]);
     }
 
     void unite(char a, char b){
