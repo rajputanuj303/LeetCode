@@ -4,9 +4,9 @@ public:
 
     char find(char x){
 
-        if(parents[int(x-'a')] == x) return x;
+        if(parents[x-'a'] == x) return x;
 
-        return parents[int(x-'a')] = find(parents[int(x-'a')]);
+        return parents[x-'a'] = find(parents[x-'a']);
     }
 
     void unite(char a, char b){
@@ -16,7 +16,7 @@ public:
 
         if(pa == pb) return;
 
-        parents[int(pb-'a')] = pa;
+        parents[pb-'a'] = pa;
     }
     
     bool equationsPossible(vector<string>& equations) {
