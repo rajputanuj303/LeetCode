@@ -18,8 +18,9 @@ public:
                 string temp = "";
                 while(i < n && s[i] != ')') temp += s[i++];
 
-                if(!mpp.count(temp)) res += "?";
-                else res += mpp[temp];
+                auto it = mpp.find(temp);
+                (it == mpp.end()) ? res += "?" : res += it->second;
+                
             }else{
                 res += s[i];
             }
