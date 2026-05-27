@@ -1,33 +1,25 @@
 class Solution {
 public:
     int numberOfSpecialChars(string word) {
-        
         int n = word.size();
-        vector<int> lowerFreq(26, 0);
-        vector<int> prefixCount(n, 0);
 
+        vector<int> lastLowerOcc(26, -1);
 
         for(int i = 0; i<n; i++){
-            if(islower(word[i])){
-                lowerFreq[word[i] - 'a']++;
-            }else{
-                prefixCount[i] = lowerFreq[word[i] - 'A'];
-            }
+            if(islower(word[i])) lastLowerOcc[word[i] - 'a'] = i;
         }
 
         int res = 0;
 
-        for(int i = 0; i < n; i++){
-
+        for(int i = 0; i<n; i++){
             if(isupper(word[i])){
-                if(prefixCount[i] == 0 || prefixCount[i] < lowerFreq[word[i] - 'A']){
-                    lowerFreq[word[i] - 'A'] = 1e9+7;
-                    continue;
-                }
-                lowerFreq[word[i] - 'A'] = 1e9+7;
-                res++;
-            }
+                if(lastLowerOcc[word[i] - 'A'] != -1){
 
+                    if(lastLowerOcc[word[i] - 'A'] < i) res++;
+                    lastLowerOcc[word[i] - 'A'] = -1;
+                    
+                }
+            }
         }
 
         return res;
