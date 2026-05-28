@@ -12,7 +12,7 @@
 class Solution {
 public:
     int idx, n;
-    pair<int, int> parsed(string traversal){
+    pair<int, int> parsed(string &traversal){
         int countdashes = 0;
         while(idx < n && traversal[idx] == '-'){
             countdashes++;
@@ -27,7 +27,7 @@ public:
 
         return {stoi(num), countdashes};
     }
-    TreeNode* Solver(int dashes, string traversal){
+    TreeNode* Solver(int dashes, string &traversal){
 
         if(idx >= n) return nullptr;
 
