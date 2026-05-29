@@ -32,11 +32,11 @@ public:
         int n = edges.size();
 
         vector<bool> visited(n, 0);
+        vector<int> pathEle;
 
         for(int i = 0; i<n; i++){
             if(visited[i]) continue;
-            vector<int> pathElements;
-            dfs(i, edges, visited, pathElements);
+            dfs(i, edges, visited, pathEle);
         }
 
         return maxi;
