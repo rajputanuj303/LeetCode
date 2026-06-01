@@ -1,2 +1,2 @@
 SELECT name FROM Customer
-WHERE referee_id is NULL || referee_id != 2;
+WHERE Customer.referee_id IS NULL OR Customer.referee_id != 2;
