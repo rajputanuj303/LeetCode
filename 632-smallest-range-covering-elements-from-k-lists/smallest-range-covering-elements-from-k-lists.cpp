@@ -3,9 +3,6 @@ public:
     vector<int> smallestRange(vector<vector<int>>& nums) {
 
         int n = nums.size();
-        
-        set<int> stt;
-
 
         priority_queue<vector<int>, vector<vector<int>>, greater<vector<int>>> minHeap;
 
