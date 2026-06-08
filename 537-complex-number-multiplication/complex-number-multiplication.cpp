@@ -2,41 +2,12 @@ class Solution {
 public:
     pair<int, int> parse(string s){
 
-        int n = s.size();
-        int i = 0;
+        int plusPos = s.find('+');
 
-        int a = 0;
-        bool neg = false;
+        int real = stoi(s.substr(0, plusPos));
+        int imag = stoi(s.substr(plusPos + 1, s.size() - plusPos - 2));
 
-        if(s[i] =='-'){
-            neg = true;
-            i++;
-        }
-
-        while(i < n && s[i] != '+'){
-            a = a*10 + (s[i] - '0');
-            i++;
-        }
-        i++;
-
-        if(neg) a = a*(-1);
-
-        int b = 0;
-        neg = false;
-
-        if(s[i] == '-'){
-            neg = true;
-            i++;
-        }
-
-        while(i < n && s[i] != 'i'){
-            b = b*10 + (s[i] - '0');
-            i++;
-        }
-
-        if(neg) b = b*(-1);
-
-        return {a, b};
+        return {real, imag};
     }
     string complexNumberMultiply(string num1, string num2) {
 
