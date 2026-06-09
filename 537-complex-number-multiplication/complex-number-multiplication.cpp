@@ -18,7 +18,7 @@ public:
         // cout << a << " " << b << endl;
         // cout << c << " " << d << endl;
 
-        int r1 = (a*c) - (b*d);
+        int r1 = (a*c - b*d);
         int r2 = (a*d + b*c);
 
         string res = to_string(r1) + "+" + to_string(r2) + "i";
