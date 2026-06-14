@@ -11,23 +11,39 @@
 class Solution {
 public:
     int pairSum(ListNode* head) {
-        stack<int> st;
+        ListNode* slow = head;
+        ListNode* fast = head;
 
-        ListNode* temp = head;
-
-        while(temp){
-            st.push(temp->val);
-            temp = temp->next;
+        while(fast && fast->next){
+            slow = slow->next;
+            fast = fast->next->next;
         }
 
-        int maxSum = 0;
+        // cout << slow->val << endl;
 
-        while(head){
-            maxSum = max(maxSum, head->val + st.top());
-            st.pop();
+        ListNode* curr = head;
+        ListNode* prev = nullptr;
+        ListNode* next = nullptr;
+
+        while(curr != slow){
+            next = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = next;
+        }
+
+        head->next = slow;
+        head = prev;
+
+
+        int maxi = 0;
+
+        while(slow){
+            maxi = max(maxi, head->val + slow->val);
             head = head->next;
+            slow = slow->next;
         }
 
-        return maxSum;         
+        return maxi;
     }
 };
