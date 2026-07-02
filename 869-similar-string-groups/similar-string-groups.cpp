@@ -1,36 +1,51 @@
 class Solution {
 public:
-    void dfs(string &s, unordered_map<string, int> &visited){
 
-        if(visited[s] == 1) return;
-        visited[s] = 1;
-        
-        for(int i = 0; i<s.size(); i++){
-            for(int j = i+1; j<s.size(); j++){
-                swap(s[i], s[j]);
-                if(visited.count(s) && visited[s] == 0){
-                    dfs(s, visited);
-                }
-                swap(s[i], s[j]);
-            }
+    bool isSimilar(string &s1, string &s2){
+        int diff = 0;
+
+        for(int i = 0; i < s1.size(); i++){
+            if(s1[i]  != s2[i]) diff++;
+            if(diff > 2) return false;
+        }
+
+        return true;
+    }
+
+    void dfs(int u, vector<bool> &visited, vector<vector<int>> &adjLs){
+        visited[u] = 1;
+
+        for(int v : adjLs[u]){
+            if(!visited[v]) dfs(v, visited, adjLs);
         }
     }
     int numSimilarGroups(vector<string>& strs) {
-        unordered_map<string, int> visited;
+        
 
-        for(string &s : strs){
-            visited[s] = 0;
-        }
+        int N = strs.size();
 
-        int group = 0;
+        vector<vector<int>> adjLs(N);
 
-        for(string &s : strs){
-            if(visited[s] == 0){
-                group++;
-                dfs(s, visited);
+        for(int i = 0; i<N; i++){
+            for(int j = i+1; j<N; j++){
+                if(isSimilar(strs[i], strs[j])){
+                    adjLs[i].push_back(j);
+                    adjLs[j].push_back(i);
+                }
             }
         }
 
-        return group;
+        int groups = 0;
+
+        vector<bool> visited(N, 0);
+
+        for(int i = 0; i<N; i++){
+            if(visited[i] == 0){
+                groups++;
+                dfs(i, visited, adjLs);
+            }
+        }
+
+        return groups;
     }
 };
