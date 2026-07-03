@@ -29,11 +29,12 @@ public:
 
                 vector<int> y = bombs[j];
 
-                long long square = pow((y[0]*1LL-x[0]), 2) + pow((y[1]*1LL-x[1]), 2);
-                double dist = sqrt(square);
+                long long dx = 1LL * bombs[j][0] - bombs[i][0];
+                long long dy = 1LL * bombs[j][1] - bombs[i][1];
+                long long distSq = dx * dx + dy * dy;
 
-                if(dist <= x[2]) adjLs[i].push_back(j);
-                if(dist <= y[2]) adjLs[j].push_back(i);
+                if(distSq <= 1LL*x[2]*x[2]) adjLs[i].push_back(j);
+                if(distSq <= 1LL*y[2]*y[2]) adjLs[j].push_back(i);
             }
         }
 
