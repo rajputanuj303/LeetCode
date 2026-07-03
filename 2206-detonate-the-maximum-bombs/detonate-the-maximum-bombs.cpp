@@ -1,26 +1,11 @@
 class Solution {
 public:
-
-    int dfs(int u, vector<vector<int>> &adjLs, vector<bool> &visited){
-
-        visited[u] = true;
-
-        int res = 1;
-
-        for(int &v : adjLs[u]){
-            if(!visited[v]){
-                res += dfs(v, adjLs, visited);
-            }
-        }
-
-        return res;
-    }
     int maximumDetonation(vector<vector<int>>& bombs) {
-        
+
         int n = bombs.size();
+        vector<vector<int>> adj(n);
 
-        vector<vector<int>> adjLs(n);
-
+        // Build graph
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
 
@@ -29,21 +14,44 @@ public:
                 long long distSq = dx * dx + dy * dy;
 
                 if (distSq <= 1LL * bombs[i][2] * bombs[i][2])
-                    adjLs[i].push_back(j);
+                    adj[i].push_back(j);
 
                 if (distSq <= 1LL * bombs[j][2] * bombs[j][2])
-                    adjLs[j].push_back(i);
+                    adj[j].push_back(i);
             }
         }
 
+        int ans = 0;
 
-        int res = 0;
-        
-        for(int i = 0; i<n; i++){
-            vector<bool> visited(n, false);
-            res = max(res, dfs(i, adjLs, visited));
+        for (int i = 0; i < n; i++) {
+
+            vector<bool> vis(n, false);
+            queue<int> q;
+
+            q.push(i);
+            vis[i] = true;
+
+            int cnt = 0;
+
+            while (!q.empty()) {
+                int u = q.front();
+                q.pop();
+                cnt++;
+
+                for (int v : adj[u]) {
+                    if (!vis[v]) {
+                        vis[v] = true;
+                        q.push(v);
+                    }
+                }
+            }
+
+            ans = max(ans, cnt);
+
+            if (ans == n)
+                return n;
         }
 
-        return res;
+        return ans;
     }
 };
