@@ -1,16 +1,22 @@
 class Solution {
 public:
     long long sumAndMultiply(int n) {
-        string N = to_string(n);
-        string X = "0";
-        long long sum = 0;
-        for(char c : N){
-            if(c != '0'){
-                X += c;
-                sum += (c - '0');
-            }
-        }
+        
+        long long removed = 0;
 
-        return (long long)sum * stoi(X);
+        long long mul = 1;
+        int sum = 0;
+        while(n){  
+            int digit = n%10;          
+            if(digit != 0){
+                long long val = digit*mul;
+                removed += val;
+                sum += digit;
+                mul *= 10;
+            }
+            n /= 10;            
+        }
+        
+        return removed*sum;
     }
 };
