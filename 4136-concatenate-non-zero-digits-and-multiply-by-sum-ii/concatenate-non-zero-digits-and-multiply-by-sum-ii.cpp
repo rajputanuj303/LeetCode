@@ -11,7 +11,7 @@ public:
         vector<ll> digitSumUpTo(n, 0);    // digit sum of s[0..i]
         vector<ll> pow10(n + 1, 0);  // 10^i
 
-        pow10[0] = 1;
+        pow10[0] = 1; // MOD applied
         for (int i = 1; i <= n; i++){
             pow10[i] = (pow10[i - 1] * 10) % MOD;
         }
@@ -24,9 +24,10 @@ public:
         }
 
 
-        numberUpTo[0]   = s[0] - '0';
+        numberUpTo[0] = s[0] - '0';
         for (int i = 1; i < n; i++) {
             int digit = s[i] - '0';
+            // MOD applied
             if (digit != 0){
                 numberUpTo[i] = (numberUpTo[i - 1] * 10 + digit) % MOD;
             }else{
@@ -58,6 +59,7 @@ public:
                 continue;
             }
 
+            // MOD applied
             ll x   = (numberUpTo[r] - (numBefore * pow10[subStrLen] % MOD) + MOD) % MOD;
             ll sum = digitSumUpTo[r] - ((l == 0) ? 0 : digitSumUpTo[l - 1]);
 
