@@ -26,9 +26,7 @@ public:
                 if(ti == m){
                     ti = 0;
                 }
-                cout << res[i][j] << " ";
             }
-            cout << endl;
         }
 
         return res;
