@@ -1,38 +1,34 @@
 class Solution {
 public:
     vector<int> rearrangeBarcodes(vector<int>& barcodes) {
-        
-        unordered_map<int, int> mpp;
 
-        for(int i : barcodes){
-            mpp[i]++;
-        }
+        unordered_map<int, int> freq;
+        for (int x : barcodes)
+            freq[x]++;
 
         priority_queue<pair<int, int>> pq;
+        for (auto &[num, cnt] : freq)
+            pq.push({cnt, num});
 
-        for(pair<int, int> p : mpp){
-            pq.push({p.second, p.first});
-        }
+        int idx = 0;
 
-        int i = 0;
-
-        while(!pq.empty()){
-            pair<int, int> c1 = pq.top();
+        while (pq.size() > 1) {
+            auto [cnt1, num1] = pq.top();
             pq.pop();
 
-            barcodes[i++] = c1.second;
-            
-            if(!pq.empty()){
-                pair<int, int> c2 = pq.top();
-                pq.pop();
+            auto [cnt2, num2] = pq.top();
+            pq.pop();
 
-                barcodes[i++] = c2.second;
-                if(c2.first-1) pq.push({c2.first-1, c2.second});
-            }
-            if(c1.first-1) pq.push({c1.first-1, c1.second});
+            barcodes[idx++] = num1;
+            barcodes[idx++] = num2;
+
+            if (--cnt1) pq.push({cnt1, num1});
+            if (--cnt2) pq.push({cnt2, num2});
         }
+
+        if (!pq.empty())
+            barcodes[idx] = pq.top().second;
 
         return barcodes;
     }
-    
 };
