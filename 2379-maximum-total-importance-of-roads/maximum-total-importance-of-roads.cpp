@@ -17,18 +17,17 @@ public:
 
 
         int idx = n;
-        vector<int> rank(n);
 
         while(!pq.empty()){
             pair<int, int> curr = pq.top();
             pq.pop();
-            rank[curr.second] = idx--;
+            indegree[curr.second] = idx--;
         }
 
         long long total = 0;
 
         for(vector<int> &v : roads){
-            total += (rank[v[0]] + rank[v[1]]);
+            total += (indegree[v[0]] + indegree[v[1]]);
         }
         return total;
     }
