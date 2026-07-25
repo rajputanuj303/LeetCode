@@ -1,6 +1,6 @@
 class Solution {
 public:
-    static bool cmp(vector<int> &v1, vector<int> &v2){
+    static bool cmp(const vector<int> &v1, const vector<int> &v2){
         if(v1[1] == v2[1]) return v1[0] < v2[0];
         return v1[1] < v2[1];
     }
@@ -13,7 +13,7 @@ public:
 
         int timeConsumed = 0;
 
-        for(vector<int> &v : courses){
+        for(const vector<int> &v : courses){
 
             if(timeConsumed + v[0] <= v[1]){
                 timeConsumed += v[0];
