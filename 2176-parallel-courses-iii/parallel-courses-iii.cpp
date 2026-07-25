@@ -18,12 +18,11 @@ public:
         vector<int> inDegree(n, 0);
 
         for(vector<int> &v : relations){
-            adjLs[v[0]-1].push_back(v[1]-1);
-            inDegree[v[1]-1]++;
+            adjLs[v[1]-1].push_back(v[0]-1);
+            inDegree[v[0]-1]++;
         }
 
-        int maxi = 0;
-        
+        int maxi = 0;        
         visited.resize(n, -1);
 
         for(int i = 0; i<n; i++){
