@@ -63,7 +63,7 @@ public:
             }
         }
 
-        // two values can be genrated based on parity.
+        // two values can be generated based on parity.
         // take minimum of both.
         return min(dist[m-1][n-1][0], dist[m-1][n-1][1]);
     }
