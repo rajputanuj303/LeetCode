@@ -42,23 +42,24 @@ public:
                 int ni = i + dr[k];
                 int nj = j + dc[k];
 
-                if(ni >= 0 && nj >= 0 && ni < m && nj < n){ // valid cell.
+                // invalid Cell Used
+                if(ni < 0 || nj < 0 || ni >= m || nj >= n) continue;
 
-                    ll newCost = cost + (1LL * (ni + 1) * (nj + 1)); // adds everytime.
+                ll newCost = cost + (1LL * (ni + 1) * (nj + 1)); // adds everytime.
 
-                    // violation condition.                    
-                    if((newParity == 1) && (dr[k] + dc[k] == -1)) { // {odd and (left, up)}
-                        newCost += penalty[i][j];                        
-                    }else if((newParity == 0) && (dr[k] + dc[k] == 1)) { // {even and (right, down)}
-                        newCost += penalty[i][j];
-                    }
-
-                    // push only if lesser value than previous is found.
-                    if(newCost < dist[ni][nj][newParity]){
-                        pq.push({newCost, newParity, ni, nj});
-                        dist[ni][nj][newParity] = newCost;
-                    }
+                // violation condition.                    
+                if((newParity == 1) && (dr[k] + dc[k] == -1)) { // {odd and (left, up)}
+                    newCost += penalty[i][j];                        
+                }else if((newParity == 0) && (dr[k] + dc[k] == 1)) { // {even and (right, down)}
+                    newCost += penalty[i][j];
                 }
+
+                // push only if lesser value than previous is found.
+                if(newCost < dist[ni][nj][newParity]){
+                    pq.push({newCost, newParity, ni, nj});
+                    dist[ni][nj][newParity] = newCost;
+                }
+
             }
         }
 
