@@ -10,9 +10,6 @@ public:
                 max2 = i;
             }
         }
-
-        cout << max1 << " " << max2 << endl;
-
         return (max1-1)*(max2-1);
     }
 };
