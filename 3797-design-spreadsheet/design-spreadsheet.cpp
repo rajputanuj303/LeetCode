@@ -20,14 +20,13 @@ public:
     }
 
     int SheetFinder(string cell){
-
-        if(cell[0] >= 'A' && cell[0] <= 'Z'){
-            int col = cell[0] - 'A';
-            int row = stoi(cell.substr(1))-1;
-
-            return Sheet[row][col];
+        if(isdigit(cell[0])){
+            return stoi(cell);
         }
-        return stoi(cell);
+
+        int col = cell[0]-'A';
+        int row = stoi(cell.substr(1)) - 1;
+        return Sheet[row][col];
     }
     
     int getValue(string formula) {
