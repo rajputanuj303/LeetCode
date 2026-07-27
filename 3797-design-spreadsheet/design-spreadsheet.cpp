@@ -32,17 +32,10 @@ public:
     
     int getValue(string formula) {
         
-        string x, y;
-        int idx = 1;
+        int plusIdx = formula.find('+');
 
-        while(idx < formula.size() && formula[idx] != '+'){
-            x += formula[idx++];
-        }
-
-        idx++;
-        while(idx < formula.size()){
-            y += formula[idx++];
-        } 
+        string x = formula.substr(1, plusIdx);
+        string y = formula.substr(plusIdx+1);
 
         return SheetFinder(x) + SheetFinder(y);
     }
