@@ -2,8 +2,7 @@ class Solution {
 public:
     using ll = long long;
 
-    class box {
-    public:
+    struct box {
         ll cost;
         int parity;
         int i;
@@ -19,15 +18,14 @@ public:
     };
 
     struct cmp {
-        bool operator()(box &a, box &b) {
+        bool operator()(const box &a, const box &b) {
             return a.cost > b.cost;   // min-heap
         }
     };
 
     long long minCost(int m, int n, vector<vector<int>>& penalty) {
 
-        vector<vector<vector<ll>>> dist(
-            m, vector<vector<ll>>(n, vector<ll>(2, LLONG_MAX)));
+        vector<vector<vector<ll>>> dist(m, vector<vector<ll>>(n, vector<ll>(2, LLONG_MAX)));
 
         priority_queue<box, vector<box>, cmp> pq;
 
@@ -48,13 +46,13 @@ public:
             int j = cur.j;
 
             // Ignore outdated state
-            if (cost != dist[i][j][parity])
-                continue;
+            if (cost != dist[i][j][parity]) continue;
 
             int newParity = parity ^ 1;
 
             // Wait
             ll waitCost = cost + penalty[i][j];
+            
             if (waitCost < dist[i][j][newParity]) {
                 dist[i][j][newParity] = waitCost;
                 pq.push(box(waitCost, newParity, i, j));
