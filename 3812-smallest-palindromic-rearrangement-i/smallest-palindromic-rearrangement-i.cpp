@@ -12,17 +12,12 @@ public:
         char ex = '*';
 
         for(int i = 0; i<26; i++){
-            int f = freq[i];
             
-            if(f&1){
-                ex = 'a'+i;
-            }
+            int f = freq[i];            
+            if(f&1) ex = 'a' + i;
 
-            int half = f/2;
-            while(half--){
-                forward  += 'a'+i;
-                backward += 'a'+i;
-            }
+            forward  += string(f/2, 'a' + i);
+            backward += string(f/2, 'a' + i);
         }
 
         if(ex != '*') backward += ex;
