@@ -29,6 +29,7 @@ public:
         long long i = n;
 
         while(true){
+            // every number will be divisible by 11 in this range.
             if (10000000 <= i && i < 100000000) {
                 i = 100000000;
                 continue;
