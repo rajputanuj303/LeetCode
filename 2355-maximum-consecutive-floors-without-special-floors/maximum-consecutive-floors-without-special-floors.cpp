@@ -7,13 +7,7 @@ public:
         int i = 0;
         int maxFloors = 0;
 
-        while(i < special.size() && bottom <= special[i]){
-            if(bottom == special[i]){
-                bottom = special[i]+1;
-                i++;
-                continue;
-            }
-
+        while(i < special.size()){
             maxFloors = max(maxFloors, special[i] - bottom);
             bottom = special[i]+1;
             i++;
