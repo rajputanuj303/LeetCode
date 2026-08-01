@@ -8,8 +8,6 @@ public:
             pair<int, int> left = Solver(i+1, j, 2, nums);
             pair<int, int> right = Solver(i, j-1, 2, nums);
 
-            // int diffLeft = (nums[i] + left.first) - left.second;
-            // int diffRight = (nums[j] + right.first) - right.second;
 
             if(nums[i] + left.first >= nums[j] + right.first)
                 return {nums[i] + left.first, left.second};
@@ -21,10 +19,10 @@ public:
             pair<int, int> left = Solver(i+1, j, 1, nums);
             pair<int, int> right = Solver(i, j-1, 1, nums);
 
-            int diffLeft = (left.second + nums[i]) - left.first;
-            int diffRight = (right.second + nums[j]) - right.first;
+            // int diffLeft = (left.second + nums[i]) - left.first;
+            // int diffRight = (right.second + nums[j]) - right.first;
 
-            if(diffLeft >= diffRight)
+            if(left.second + nums[i] >= right.second + nums[j])
                 return {left.first, nums[i] + left.second};
             else
                 return {right.first, nums[j] + right.second};
