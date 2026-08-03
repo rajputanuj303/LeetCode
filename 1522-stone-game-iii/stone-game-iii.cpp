@@ -1,40 +1,33 @@
 class Solution {
 public:
     int n;
-    vector<vector<pair<int, int>>> dp;
-    pair<int, int> Solver(int idx, bool Alice, vector<int> &nums){
+    vector<int> dp;
 
-        if(idx >= n) return {0, 0};
-        if(dp[idx][Alice].first != INT_MIN) return dp[idx][Alice];
-            
-        pair<int, int> best = {INT_MIN, INT_MIN};
+    int solve(int idx, vector<int>& stoneValue) {
+        if (idx >= n) return 0;
 
-        int sum = 0;
-        for(int i = idx; i<n && i < idx+3; i++){
-            sum += nums[i];
-            pair<int, int> next = Solver(i+1, !Alice, nums);
+        if (dp[idx] != INT_MIN)
+            return dp[idx];
 
-            if(Alice){  
-                if(sum + next.first > best.first){
-                    best = {sum + next.first, next.second};
-                }
-            }else{
-                if(sum + next.second > best.second){
-                    best = {next.first, sum + next.second};
-                }
-            }
+        int take = 0;
+        int best = INT_MIN;
+
+        for (int i = idx; i < min(n, idx + 3); i++) {
+            take += stoneValue[i];
+            best = max(best, take - solve(i + 1, stoneValue));
         }
 
-        return dp[idx][Alice] = best;
+        return dp[idx] = best;
     }
+
     string stoneGameIII(vector<int>& stoneValue) {
+        n = stoneValue.size();
+        dp.assign(n, INT_MIN);
 
-        n = stoneValue.size();        
-        dp.assign(n+1, vector<pair<int, int>>(2, {INT_MIN, INT_MIN}));
-        pair<int, int> res = Solver(0, 1, stoneValue);
+        int diff = solve(0, stoneValue);
 
-        if(res.first == res.second) return "Tie";
-        else if(res.first > res.second) return "Alice";
-        else return "Bob";
+        if (diff > 0) return "Alice";
+        if (diff < 0) return "Bob";
+        return "Tie";
     }
 };
