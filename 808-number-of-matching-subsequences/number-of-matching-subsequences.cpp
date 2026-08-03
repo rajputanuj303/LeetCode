@@ -10,13 +10,14 @@ public:
 
         int count = 0;
 
-        for(string word : words){
+        for(const string &word : words){
 
             int prevIdx = -1;
             bool flag = true;
 
             for(int i = 0; i<word.size(); i++){
                 char c = word[i];
+                // used to find first Index strictly greater than prevIdx
                 auto it = upper_bound(indexes[c-'a'].begin(), indexes[c-'a'].end(), prevIdx);
 
                 if(it == indexes[c-'a'].end()){
