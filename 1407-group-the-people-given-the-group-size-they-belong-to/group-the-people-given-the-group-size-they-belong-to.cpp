@@ -1,28 +1,22 @@
 class Solution {
 public:
     vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
+        
         int n = groupSizes.size();
         unordered_map<int, vector<int>> mpp; 
-        for(int i = 0; i<n; i++){
-            mpp[groupSizes[i]].push_back(i);
-        }
-
-
         vector<vector<int>> res;
 
-        for(auto pair : mpp){
-            int size = pair.first;
-            vector<int> v = pair.second;
+        for(int i = 0; i<n; i++){
 
-            vector<int> temp;
-            for(int i = 0; i<v.size(); i++){
-                temp.push_back(v[i]);
-                if(temp.size() == size){
-                    res.push_back(temp);
-                    temp.clear();
-                }
+            int size = groupSizes[i];
+            mpp[size].push_back(i);
+            
+            if(mpp[size].size() == size){
+                res.push_back(mpp[size]);
+                mpp[size].clear();
             }
-        }
+            
+        }       
 
         return res;
     }
