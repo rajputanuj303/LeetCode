@@ -1,23 +1,16 @@
 class Solution {
 public:
     vector<int> findMissingElements(vector<int>& nums) {
-        
-        priority_queue<int, vector<int>, greater<int>> pq(nums.begin(), nums.end());
-
-        int mini = pq.top();
-        pq.pop();
+        sort(nums.begin(), nums.end());
 
         vector<int> res;
 
-        while(!pq.empty()){
-            int currMin = pq.top();
-            pq.pop();
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] == nums[i - 1]) continue; // handle duplicates
 
-            for(int i = mini+1; i<currMin; i++){
-                res.push_back(i);
+            for (int x = nums[i - 1] + 1; x < nums[i]; x++) {
+                res.push_back(x);
             }
-
-            mini = currMin;
         }
 
         return res;
