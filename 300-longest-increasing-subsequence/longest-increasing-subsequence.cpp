@@ -9,7 +9,7 @@ public:
             if(it == tails.end()){
                 tails.push_back(x);
             }else{
-                *it = x;
+                tails[it - tails.begin()] = x;
             }
         }
         return tails.size();
