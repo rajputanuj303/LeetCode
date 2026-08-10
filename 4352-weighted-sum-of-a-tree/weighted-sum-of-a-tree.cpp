@@ -25,9 +25,6 @@ public:
 
         long long height = dfs(0, adjLs);
         long long depth = 1;
-
-        // cout << height << endl;
-
         long long res = 0;
 
         while(!que.empty()){
@@ -39,9 +36,6 @@ public:
 
                 long long weight = 1LL*(nums[curr]*(height - depth + 1));
                 res += weight;                
-
-                // cout << curr << " " << nums[curr] << " " << depth << " " << weight << endl;
-
                 for(int v : adjLs[curr]){
                     que.push(v);
                 }
