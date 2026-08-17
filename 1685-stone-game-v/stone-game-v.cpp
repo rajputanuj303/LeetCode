@@ -18,18 +18,18 @@ public:
             int currSum = 0;
 
             if(leftSum == rightSum){
-                int leftPart = Solver(l, mid);
-                int rightPart = Solver(mid+1, r);
+                int leftPart = (dp[l][mid] != -1 ? dp[l][mid] : Solver(l, mid));
+                int rightPart = (dp[mid+1][r] != -1 ? dp[mid+1][r] : Solver(mid+1, r));
                 currSum = leftSum + max(leftPart, rightPart);
 
             }else if(leftSum > rightSum){
 
-                int rightPart = Solver(mid+1, r);
+                int rightPart = (dp[mid+1][r] != -1 ? dp[mid+1][r] : Solver(mid+1, r));
                 currSum = rightSum + rightPart;
                 
             }else{
 
-                int leftPart = Solver(l, mid);
+                int leftPart = (dp[l][mid] != -1 ? dp[l][mid] : Solver(l, mid));
                 currSum = leftSum + leftPart;
             }
 
