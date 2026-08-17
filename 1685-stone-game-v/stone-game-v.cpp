@@ -3,6 +3,7 @@ public:
     vector<int> prefixSum;
     vector<vector<int>> dp;
     int n;
+
     int Solver(int l, int r){
         if(l == r) return 0;
 
@@ -11,8 +12,8 @@ public:
         int maxResult = 0;
 
         for(int mid = l; mid < r; mid++){
-            int leftSum = prefixSum[mid + 1] - prefixSum[l];
-            int rightSum = prefixSum[r + 1] - prefixSum[mid + 1];
+            int leftSum = prefixSum[mid] - (l  > 0 ? prefixSum[l-1] : 0);
+            int rightSum = prefixSum[r] - prefixSum[mid];
 
             int currSum = 0;
 
@@ -39,11 +40,12 @@ public:
     }
     int stoneGameV(vector<int>& stoneValue) {
         n = stoneValue.size();
-        prefixSum.assign(n+1, 0);
-        dp.assign(n+1, vector<int>(n+1, -1));
+        prefixSum.assign(n, 0);
+        dp.assign(n, vector<int>(n, -1));
 
-        for(int i = 1; i<=n; i++){
-            prefixSum[i] = prefixSum[i-1] + stoneValue[i-1];
+        prefixSum[0] = stoneValue[0];
+        for(int i = 1; i<n; i++){
+            prefixSum[i] = prefixSum[i-1] + stoneValue[i];
         }
 
         return Solver(0, n-1);        
