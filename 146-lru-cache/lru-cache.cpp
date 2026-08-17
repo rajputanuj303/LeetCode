@@ -1,42 +1,58 @@
 class LRUCache {
 public:
-    list<int> dll; // front is MRU and back is LRU
-    // {key, {value, node-iterator}}
-    unordered_map<int, pair<int, list<int>::iterator>> cache;
 
-    int cap;
+    int counter;
+    int size;
+    unordered_map<int, int> keyValue;
+    set<pair<int, int>> stt;
+    unordered_map<int, int> counterMap;
 
     LRUCache(int capacity) {
-        cap = capacity;
-    }
-
-    void UpdateKey(int key){
-        dll.erase(cache[key].second);
-        dll.push_front(key);
-        cache[key].second = dll.begin();
+        size = capacity;
+        counter = 0;
     }
     
     int get(int key) {
-        if(!cache.count(key)) return -1;
-        UpdateKey(key);
-        return cache[key].first;
+        if (counterMap.count(key) == 0) return -1;
+
+        int prevCntr = counterMap[key];
+
+        // Remove old position
+        stt.erase({prevCntr, key});
+
+        // Mark as recently used
+        counter++;
+        stt.insert({counter, key});
+        counterMap[key] = counter;
+
+        return keyValue[key];
     }
     
     void put(int key, int value) {
-        if(cache.count(key)){
-            cache[key].first = value;
-            UpdateKey(key);
-        }else{
-            dll.push_front(key);
-            cache[key] = {value, dll.begin()};
-            cap--;
+
+        counter++;
+
+        // If key already exists, remove its old position
+        if (counterMap.count(key)) {
+            int prevCntr = counterMap[key];
+            stt.erase({prevCntr, key});
         }
 
-        if(cap < 0){
-            int keyDel = dll.back();
-            cache.erase(keyDel);
-            dll.pop_back();
-            cap++;
+        // Update value and mark as recently used
+        counter++;
+        keyValue[key] = value;
+        counterMap[key] = counter;
+        stt.insert({counter, key});
+
+        // Evict least recently used
+        if (stt.size() > size) {
+            pair<int, int> p = *stt.begin();
+
+            int oldKey = p.second;
+
+            stt.erase(stt.begin());
+            keyValue.erase(oldKey);
+            counterMap.erase(oldKey);
         }
     }
 };
