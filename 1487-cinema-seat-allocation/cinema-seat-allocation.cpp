@@ -3,7 +3,7 @@ public:
     
     int maxNumberOfFamilies(int n, vector<vector<int>>& reservedSeats) {   
         
-        unordered_map<int, set<int>> reserved;
+        unordered_map<int, unordered_set<int>> reserved;
 
         for(vector<int> v : reservedSeats){
             reserved[v[0]].insert(v[1]);
