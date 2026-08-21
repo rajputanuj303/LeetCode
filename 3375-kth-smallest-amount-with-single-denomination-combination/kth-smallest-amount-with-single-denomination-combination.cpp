@@ -12,35 +12,26 @@ public:
         // Inclusion-Exclusion
         for (int mask = 1; mask < (1 << n); mask++) {
 
-            if (__builtin_popcount(mask) <= 1)
-                continue;
+            int countBits = __builtin_popcount(mask);
+            if(countBits <= 1) continue;
 
             long long LCM = 1;
-            int bits = 0;
 
             for (int i = 0; i < n; i++) {
                 if (mask & (1 << i)) {
-
-                    bits++;
 
                     long long GCD = gcd(LCM, (long long)coins[i]);
 
                     // Avoid overflow
                     LCM = (LCM / GCD) * coins[i];
-
-                    if (LCM > val) {
-                        break;
-                    }
+                    if (LCM > val) break;
                 }
             }
 
-            if (LCM > val)
-                continue;
+            if (LCM > val) continue;
 
-            if (bits % 2 == 0)
-                totalCount -= val / LCM;
-            else
-                totalCount += val / LCM;
+            if (countBits % 2 == 0) totalCount -= val / LCM;
+            else totalCount += val / LCM;
         }
         return totalCount;
     }
