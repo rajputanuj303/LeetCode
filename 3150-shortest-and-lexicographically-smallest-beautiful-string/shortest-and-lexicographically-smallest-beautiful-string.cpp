@@ -4,11 +4,12 @@ public:
         int n = s.size();
 
         int left = 0;
+        int right = 0;
         int ones = 0;
 
         string ans = "";
 
-        for (int right = 0; right < n; right++) {
+        while(right < n) {
 
             if (s[right] == '1')
                 ones++;
@@ -38,6 +39,8 @@ public:
                     ans = cur;
                 }
             }
+
+            right++;
         }
 
         return ans;
