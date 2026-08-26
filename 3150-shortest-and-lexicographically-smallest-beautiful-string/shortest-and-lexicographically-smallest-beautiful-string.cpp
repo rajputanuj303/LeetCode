@@ -15,7 +15,7 @@ public:
                 ones++;
 
             // Too many ones -> move left
-            while (ones > k) {
+            while (ones > k || s[left] == '0') {
                 if (s[left] == '1')
                     ones--;
 
@@ -24,11 +24,6 @@ public:
 
             // We have exactly k ones
             if (ones == k) {
-
-                // Remove unnecessary leading zeros
-                while (left < right && s[left] == '0') {
-                    left++;
-                }
 
                 string cur = s.substr(left, right - left + 1);
 
