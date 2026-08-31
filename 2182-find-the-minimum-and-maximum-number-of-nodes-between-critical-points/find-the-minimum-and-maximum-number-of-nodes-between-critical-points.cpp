@@ -1,60 +1,44 @@
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) {}
- *     ListNode(int x) : val(x), next(nullptr) {}
- *     ListNode(int x, ListNode *next) : val(x), next(next) {}
- * };
- */
 class Solution {
 public:
-    bool isSatisfying(ListNode* curr, ListNode* prev, ListNode* next){
-        if(curr->val > prev->val && curr->val > next->val) return true;
-        else if(curr->val < prev->val && curr->val < next->val) return true;
-        return false;
-    }
     vector<int> nodesBetweenCriticalPoints(ListNode* head) {
-        if(!head || !head->next || !head->next->next) return {-1, -1};
-        
-        int currIdx = 1;
-        int firstIdx = -1;
-        int prevIdx = -1;
+        if (!head || !head->next || !head->next->next)
+            return {-1, -1};
+
+        int first = -1;       // First critical point
+        int last = -1;        // Previous critical point
+        int minDist = INT_MAX;
 
         ListNode* prev = head;
         ListNode* curr = head->next;
 
-        int minDis = INT_MAX;
-        int maxDis = INT_MIN;
+        int idx = 1;
 
-        while(curr->next){
-            
-            if(isSatisfying(curr, prev, curr->next)){
+        while (curr->next) {
+            int val = curr->val;
 
-                if(firstIdx == -1){
-                    firstIdx = currIdx;
-                    prevIdx = currIdx;
-                    currIdx++;
-                    prev = curr;
-                    curr = curr->next;
-                    continue;
+            // Check whether curr is a critical point
+            if ((val > prev->val && val > curr->next->val) ||
+                (val < prev->val && val < curr->next->val)) {
+
+                if (first == -1) {
+                    // First critical point
+                    first = idx;
+                } else {
+                    // Distance from previous critical point
+                    minDist = min(minDist, idx - last);
                 }
 
-                minDis = min(minDis, currIdx - prevIdx);
-                maxDis = max(maxDis, currIdx - firstIdx);
-
-                prevIdx = currIdx;
+                last = idx;
             }
+
             prev = curr;
             curr = curr->next;
-            currIdx++;
+            idx++;
         }
 
+        // Fewer than 2 critical points
+        if (first == -1 || first == last) return {-1, -1};
 
-
-
-        if(minDis == INT_MAX) return {-1, -1};
-        return {minDis, maxDis};
+        return {minDist, last - first};
     }
 };
