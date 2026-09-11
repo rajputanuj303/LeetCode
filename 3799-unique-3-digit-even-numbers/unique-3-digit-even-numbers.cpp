@@ -1,28 +1,30 @@
 class Solution {
 public:
     int totalNumbers(vector<int>& digits) {
-        
+
+        int freq[10] = {};
+        for (int d : digits) freq[d]++;
+
         int count = 0;
 
-        vector<int> present(10, 0);
+        for (int i = 1; i <= 9; i++) {
 
-        for(int digit : digits) present[digit]++;
+            if (!freq[i]) continue;
+            freq[i]--;
 
-        for(int i = 100; i<1000; i+=2){
-            
-            int num = i;
-            bool flag = true;
-            vector<int> temp = present;
-            while(num){
-                if(temp[num%10] == 0){
-                    flag = false;
-                    break;
+            for (int j = 0; j <= 9; j++) {
+
+                if (!freq[j]) continue;
+                freq[j]--;
+
+                for (int k = 0; k <= 8; k += 2) {
+                    if (freq[k]) count++;
                 }
-                temp[num%10]--;
-                num /= 10;
+
+                freq[j]++;
             }
 
-            if(flag) count++;
+            freq[i]++;
         }
 
         return count;
