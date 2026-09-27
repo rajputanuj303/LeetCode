@@ -1,33 +1,30 @@
 class Solution {
 public:
+    string reverseParentheses(string s) {
 
-    string Solver(int &i, int n, string &s) {
-        string temp = "";
+        stack<string> st;
+        string curr = "";
 
-        while (i < n) {
+        for(char ch : s) {
 
-            if (s[i] == '(') {
-                i++;
-                string inside = Solver(i, n, s);
-                reverse(inside.begin(), inside.end());
-                temp += inside;
+            if(ch == '(') {
+                // Save current string
+                st.push(curr);
+                curr = "";
             }
-            else if (s[i] == ')') {
-                i++;
-                return temp;
+            else if(ch == ')') {
+                // Reverse content inside ()
+                reverse(curr.begin(), curr.end());
+
+                // Append it to the previous level
+                curr = st.top() + curr;
+                st.pop();
             }
             else {
-                temp += s[i];
-                i++;
+                curr += ch;
             }
         }
 
-        return temp;
-    }
-
-    string reverseParentheses(string s) {
-        int i = 0;
-        return Solver(i, s.size(), s);
+        return curr;
     }
 };
-
