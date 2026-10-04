@@ -1,8 +1,7 @@
 class Solution {
 public:
-    int n;
-    vector<vector<int>> dp;
-    bool Solver(int i, string s, int balanced){
+    bool Solver(int i, string s, int balanced, int &n, vector<vector<int>> &dp){
+        
         if(i == n){
             if(balanced == 0) return true;
             return false;
@@ -15,19 +14,19 @@ public:
         bool result = false;
 
         if(s[i] == '*'){
-            result |= Solver(i+1, s, balanced);
-            result |= Solver(i+1, s, balanced+1);
-            result |= Solver(i+1, s, balanced-1);
+            result |= Solver(i+1, s, balanced, n, dp);
+            result |= Solver(i+1, s, balanced+1, n, dp);
+            result |= Solver(i+1, s, balanced-1, n, dp);
         }else{
-            result |= Solver(i+1, s, balanced + (s[i] == '(' ? 1 : -1));
+            result |= Solver(i+1, s, balanced + (s[i] == '(' ? 1 : -1), n, dp);
         }
 
         return dp[i][balanced] = result;
     }
     bool checkValidString(string s) {
-        n = s.size();
 
-        dp.assign(n+1, vector<int>(n+1, -1));
-        return Solver(0, s, 0);
+        int n = s.size();
+        vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
+        return Solver(0, s, 0, n, dp);
     }
 };
