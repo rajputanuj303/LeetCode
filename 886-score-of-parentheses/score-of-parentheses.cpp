@@ -16,10 +16,7 @@ public:
                 rank--;
             }
         }
-
-        for(int i : RankScore) cout << i << " ";
-        cout << endl;
-
+        
         return RankScore[1];        
     }
 };
