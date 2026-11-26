@@ -1,15 +1,14 @@
 class Solution {
 public:
     bool canAliceWin(int n) {
-        int remove = 10;
-        bool aliceTurn = true;
+        bool t = 0;
+        int pile = 10;
 
-        while (n >= remove) {
-            n -= remove;
-            remove--;
-            aliceTurn = !aliceTurn;
+        while (n >= pile) {
+            n -= pile--;
+            t ^= 1;
         }
 
-        return !aliceTurn;
+        return t;
     }
 };
